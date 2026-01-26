@@ -1,0 +1,123 @@
+body {
+  background: #ffffff;
+}
+
+/* HERO */
+.hero-wrap {
+  padding-top: 90px; /* fixed navbar */
+  background: radial-gradient(1200px 500px at 20% 10%, #e8f0ff 0%, transparent 60%),
+    radial-gradient(900px 450px at 90% 20%, #ffe9f1 0%, transparent 55%),
+    linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+  border-bottom: 1px solid #eee;
+}
+
+.hero-content {
+  padding: 60px 0 40px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 12px;
+}
+
+.hero-rotator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 26px;
+}
+
+.hero-rotator .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #111;
+}
+
+.rotating-text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  color: #111;
+}
+
+/* SECTIONS */
+.section-pad {
+  padding: 70px 0;
+}
+
+.soft-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  padding: 22px;
+  backdrop-filter: blur(10px);
+}
+
+.project-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.mini-card {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.skill-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 16px;
+  height: 100%;
+}
+
+.stat-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.stat-number {
+  font-weight: 800;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #666;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+/* Small tweaks */
+.navbar {
+  backdrop-filter: blur(8px);
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
