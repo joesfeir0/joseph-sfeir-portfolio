@@ -121,3 +121,44 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+
+/* Reveal animation */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Navbar active link */
+a.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* Back to top button */
+.backtop {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: 250ms ease;
+}
+.backtop.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Optional dark mode */
+:root[data-theme="dark"] {
+  background: #0b0f19;
+  color: #e9ecf1;
+}
+:root[data-theme="dark"] a { color: #a9c7ff; }

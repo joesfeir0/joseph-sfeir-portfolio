@@ -181,7 +181,7 @@ export default function App() {
       </header>
 
       {/* ABOUT */}
-      <section id="about" className="section-pad">
+      <section id="about" className="section-pad" data-reveal>
         <div className="container">
           <div className="row g-4">
             <div className="col-lg-7">
@@ -211,7 +211,7 @@ export default function App() {
       </section>
 
       {/* PROJECTS */}
-      <section id="projects" className="section-pad bg-light">
+      <section id="projects" className="section-pad bg-light" data-reveal>
         <div className="container">
           <div className="d-flex justify-content-between align-items-end flex-wrap gap-2">
             <div>
@@ -318,7 +318,7 @@ export default function App() {
       </section>
 
       {/* SKILLS */}
-      <section id="skills" className="section-pad">
+      <section id="skills" className="section-pad" data-reveal>
         <div className="container">
           <h2 className="fw-bold">Skills</h2>
           <p className="text-muted mt-2">
@@ -348,7 +348,7 @@ export default function App() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="section-pad bg-light">
+      <section id="contact" className="section-pad bg-light" data-reveal>
         <div className="container">
           <h2 className="fw-bold">Contact</h2>
           <div className="row g-3 mt-2">
@@ -375,6 +375,16 @@ export default function App() {
       </section>
 
       <footer className="py-4 text-center bg-white border-top">
+        <button class="backtop" data-backtop type="button">↑</button>
+
+        <button type="button" data-copy-email="joesfeir2004@gmail.com">
+          Copy Email
+        </button>
+
+        <button type="button" data-theme-toggle>
+        Toggle Theme
+        </button>
+
                 © {new Date().getFullYear()} Joseph Sfeir
       </footer>
     </>
