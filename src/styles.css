@@ -2,6 +2,21 @@ body {
   background: #ffffff;
 }
 
+/* top progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #111;
+  z-index: 9999;
+}
+
+/* navbar blur */
+.nav-blur {
+  backdrop-filter: blur(8px);
+}
+
 /* HERO */
 .hero-wrap {
   padding-top: 90px; /* fixed navbar */
@@ -111,54 +126,72 @@ body {
   background: #fff;
 }
 
-/* Small tweaks */
-.navbar {
-  backdrop-filter: blur(8px);
+/* Active nav link (JS highlights section) */
+.active-link {
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 6px;
 }
+
+/* Hover lift (feels interactive) */
+.hover-lift {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Reveal animations (JS adds classes) */
+.section-root {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal-item-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Back to top button */
+.back-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid #e5e5e5;
+  background: #111;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 9998;
+}
+.back-top.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* links */
 a {
   text-decoration: none;
 }
 a:hover {
   text-decoration: underline;
 }
-
-
-/* Reveal animation */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 600ms ease, transform 600ms ease;
-}
-.reveal-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Navbar active link */
-a.active {
-  text-decoration: underline;
-  text-underline-offset: 6px;
-}
-
-/* Back to top button */
-.backtop {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
-  transition: 250ms ease;
-}
-.backtop.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-/* Optional dark mode */
-:root[data-theme="dark"] {
-  background: #0b0f19;
-  color: #e9ecf1;
-}
-:root[data-theme="dark"] a { color: #a9c7ff; }

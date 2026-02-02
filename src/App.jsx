@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function App() {
   const roles = useMemo(
@@ -12,8 +12,13 @@ export default function App() {
   );
 
   const [roleIndex, setRoleIndex] = useState(0);
+  const [active, setActive] = useState("home");
+  const [progress, setProgress] = useState(0);
+  const [showTop, setShowTop] = useState(false);
 
-  // Simple “typing-like” rotation (JS effect)
+  const sectionsRef = useRef([]);
+
+  // JS #1: rotating role text
   useEffect(() => {
     const t = setInterval(() => {
       setRoleIndex((i) => (i + 1) % roles.length);
@@ -21,14 +26,88 @@ export default function App() {
     return () => clearInterval(t);
   }, [roles.length]);
 
+  // JS #2: smooth scroll + scroll progress + back-to-top visibility
+  useEffect(() => {
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const p = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      setProgress(p);
+      setShowTop(scrollTop > 500);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // JS #3: active section highlight + reveal animations using IntersectionObserver
+  useEffect(() => {
+    const nodes = sectionsRef.current.filter(Boolean);
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const id = e.target.getAttribute("id");
+            if (id) setActive(id);
+
+            // reveal animation
+            e.target.classList.add("reveal-in");
+          }
+        });
+      },
+      { root: null, threshold: 0.18 }
+    );
+
+    nodes.forEach((n) => io.observe(n));
+
+    // also reveal cards
+    const revealItems = document.querySelectorAll(".reveal");
+    const io2 = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("reveal-item-in");
+        });
+      },
+      { threshold: 0.15 }
+    );
+    revealItems.forEach((el) => io2.observe(el));
+
+    return () => {
+      io.disconnect();
+      io2.disconnect();
+    };
+  }, []);
+
+  // Helper: smooth scroll to section
+  const goTo = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const setSectionRef = (el) => {
+    if (!el) return;
+    if (!sectionsRef.current.includes(el)) sectionsRef.current.push(el);
+  };
+
   return (
     <>
+      {/* JS progress bar */}
+      <div className="scroll-progress" style={{ width: `${progress}%` }} />
+
       {/* NAV */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom">
+      <nav className="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom nav-blur">
         <div className="container">
-          <a className="navbar-brand fw-bold" href="#">
+          <button
+            className="navbar-brand fw-bold btn btn-link p-0 m-0 text-decoration-none"
+            onClick={() => goTo("home")}
+            type="button"
+          >
             Joseph Sfeir
-          </a>
+          </button>
 
           <button
             className="navbar-toggler"
@@ -41,26 +120,25 @@ export default function App() {
 
           <div className="collapse navbar-collapse" id="nav">
             <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-              <li className="nav-item">
-                <a className="nav-link" href="#about">
-                  About
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#projects">
-                  Projects
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#skills">
-                  Skills
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#contact">
-                  Contact
-                </a>
-              </li>
+              {[
+                ["home", "Home"],
+                ["about", "About"],
+                ["projects", "Projects"],
+                ["skills", "Skills"],
+                ["contact", "Contact"],
+              ].map(([id, label]) => (
+                <li className="nav-item" key={id}>
+                  <button
+                    className={`nav-link btn btn-link ${
+                      active === id ? "active-link" : ""
+                    }`}
+                    onClick={() => goTo(id)}
+                    type="button"
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
 
               <li className="nav-item ms-lg-2">
                 <a
@@ -78,13 +156,11 @@ export default function App() {
       </nav>
 
       {/* HERO */}
-      <header className="hero-wrap">
+      <header id="home" ref={setSectionRef} className="hero-wrap section-root">
         <div className="container hero-content">
           <div className="row align-items-center g-4">
             <div className="col-lg-7">
-              <div className="hero-badge">
-                Available for Internship • Lebanon
-              </div>
+              <div className="hero-badge">Available for Internship • Lebanon</div>
 
               <h1 className="display-5 fw-bold mt-3 mb-2">
                 Building real projects.
@@ -104,12 +180,12 @@ export default function App() {
               </p>
 
               <div className="d-flex flex-wrap gap-2 mt-4">
-                <a className="btn btn-dark" href="#projects">
+                <button className="btn btn-dark" onClick={() => goTo("projects")}>
                   View Projects
-                </a>
-                <a className="btn btn-outline-dark" href="#contact">
+                </button>
+                <button className="btn btn-outline-dark" onClick={() => goTo("contact")}>
                   Contact Me
-                </a>
+                </button>
                 <a
                   className="btn btn-outline-secondary"
                   href="/cv/Joseph-Sfeir-CV.pdf"
@@ -121,19 +197,19 @@ export default function App() {
               </div>
 
               <div className="hero-stats row g-3 mt-4">
-                <div className="col-6 col-md-4">
+                <div className="col-6 col-md-4 reveal">
                   <div className="stat-card">
                     <div className="stat-number">2022</div>
                     <div className="stat-label">Started CS @ NDU</div>
                   </div>
                 </div>
-                <div className="col-6 col-md-4">
+                <div className="col-6 col-md-4 reveal">
                   <div className="stat-card">
                     <div className="stat-number">2025</div>
                     <div className="stat-label">Full-Stack Internship</div>
                   </div>
                 </div>
-                <div className="col-12 col-md-4">
+                <div className="col-12 col-md-4 reveal">
                   <div className="stat-card">
                     <div className="stat-number">AutoMatch</div>
                     <div className="stat-label">Senior Project</div>
@@ -143,7 +219,7 @@ export default function App() {
             </div>
 
             {/* Right card */}
-            <div className="col-lg-5">
+            <div className="col-lg-5 reveal">
               <div className="glass-card">
                 <h5 className="fw-bold mb-3">Quick Profile</h5>
 
@@ -166,13 +242,11 @@ export default function App() {
                 <hr />
 
                 <div className="d-flex flex-wrap gap-2">
-                  <span className="tag">JavaScript</span>
-                  <span className="tag">React</span>
-                  <span className="tag">SQL</span>
-                  <span className="tag">PHP</span>
-                  <span className="tag">Python</span>
-                  <span className="tag">C++</span>
-                  <span className="tag">C#</span>
+                  {["JavaScript", "React", "SQL", "PHP", "Python", "C++", "C#"].map((t) => (
+                    <span className="tag" key={t}>
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -181,19 +255,19 @@ export default function App() {
       </header>
 
       {/* ABOUT */}
-      <section id="about" className="section-pad" data-reveal>
+      <section id="about" ref={setSectionRef} className="section-pad section-root">
         <div className="container">
           <div className="row g-4">
-            <div className="col-lg-7">
+            <div className="col-lg-7 reveal">
               <h2 className="fw-bold">About</h2>
               <p className="text-muted mt-3">
-                I’m a Computer Science student currently working on my final year project.
-                I enjoy building full-stack web apps, fixing real bugs, and improving UX.
-                I’m team-oriented, adaptable, and focused on delivering clean results.
+                I’m a Computer Science student who enjoys building full-stack web apps,
+                fixing real bugs, and improving UX. I’m team-oriented, adaptable, and
+                focused on delivering clean results.
               </p>
             </div>
 
-            <div className="col-lg-5">
+            <div className="col-lg-5 reveal">
               <div className="soft-card">
                 <h6 className="fw-bold mb-2">Experience</h6>
                 <div className="timeline-item">
@@ -201,7 +275,7 @@ export default function App() {
                   <div className="t-sub text-muted">White Beard — 06/2025 to 07/2025</div>
                   <ul className="mt-2 mb-0">
                     <li>Built and maintained full-stack apps (HTML, CSS, JS, PHP, SQL).</li>
-                    <li>Worked on responsive UI and back-end performance improvements.</li>
+                    <li>Worked on responsive UI and performance improvements.</li>
                   </ul>
                 </div>
               </div>
@@ -211,26 +285,29 @@ export default function App() {
       </section>
 
       {/* PROJECTS */}
-      <section id="projects" className="section-pad bg-light" data-reveal>
+      <section id="projects" ref={setSectionRef} className="section-pad bg-light section-root">
         <div className="container">
           <div className="d-flex justify-content-between align-items-end flex-wrap gap-2">
-            <div>
+            <div className="reveal">
               <h2 className="fw-bold mb-1">Projects</h2>
               <p className="text-muted mb-0">Real work — not just tutorials.</p>
             </div>
-            <a
-              className="btn btn-outline-dark btn-sm"
-              href="/cv/Joseph-Sfeir-CV.pdf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              CV PDF
-            </a>
+
+            <div className="reveal">
+              <a
+                className="btn btn-outline-dark btn-sm"
+                href="/cv/Joseph-Sfeir-CV.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CV PDF
+              </a>
+            </div>
           </div>
 
           <div className="row g-4 mt-3">
-            <div className="col-lg-8">
-              <div className="project-card shadow-sm">
+            <div className="col-lg-8 reveal">
+              <div className="project-card shadow-sm hover-lift">
                 <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
                   <div>
                     <h4 className="fw-bold mb-1">AutoMatch</h4>
@@ -253,7 +330,7 @@ export default function App() {
                 </p>
 
                 <div className="row g-3">
-                  <div className="col-md-6">
+                  <div className="col-md-6 reveal">
                     <div className="mini-card">
                       <div className="fw-semibold mb-2">What’s done</div>
                       <ul className="mb-0">
@@ -266,7 +343,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="col-md-6">
+                  <div className="col-md-6 reveal">
                     <div className="mini-card">
                       <div className="fw-semibold mb-2">Next</div>
                       <ul className="mb-0">
@@ -280,20 +357,20 @@ export default function App() {
                 </div>
 
                 <div className="mt-3 d-flex flex-wrap gap-2">
-                  <span className="tag">React (Vite)</span>
-                  <span className="tag">Bootstrap</span>
-                  <span className="tag">Laravel API</span>
-                  <span className="tag">MySQL</span>
-                  <span className="tag">Sanctum</span>
+                  {["React (Vite)", "Bootstrap", "Laravel API", "MySQL", "Sanctum"].map((t) => (
+                    <span className="tag" key={t}>
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
 
-            <div className="col-lg-4">
-              <div className="project-card shadow-sm h-100">
+            <div className="col-lg-4 reveal">
+              <div className="project-card shadow-sm h-100 hover-lift">
                 <h5 className="fw-bold">This Portfolio</h5>
                 <p className="text-muted mt-2">
-                  Built with Bootstrap + custom CSS. Includes CV + projects. Deployed online soon.
+                  Bootstrap + custom CSS + JS interactions (scroll animations, progress, active nav).
                 </p>
 
                 <div className="mini-card mt-3">
@@ -318,12 +395,12 @@ export default function App() {
       </section>
 
       {/* SKILLS */}
-      <section id="skills" className="section-pad" data-reveal>
+      <section id="skills" ref={setSectionRef} className="section-pad section-root">
         <div className="container">
-          <h2 className="fw-bold">Skills</h2>
-          <p className="text-muted mt-2">
-            Based on coursework + internship + projects.
-          </p>
+          <div className="reveal">
+            <h2 className="fw-bold">Skills</h2>
+            <p className="text-muted mt-2">Based on coursework + internship + projects.</p>
+          </div>
 
           <div className="row g-3 mt-2">
             {[
@@ -336,8 +413,8 @@ export default function App() {
               ["C#", "OOP projects (Windows Forms)"],
               ["HTML & CSS", "Responsive UI and layouts"],
             ].map(([name, desc]) => (
-              <div className="col-md-6 col-lg-3" key={name}>
-                <div className="skill-card">
+              <div className="col-md-6 col-lg-3 reveal" key={name}>
+                <div className="skill-card hover-lift">
                   <div className="fw-semibold">{name}</div>
                   <div className="text-muted small mt-1">{desc}</div>
                 </div>
@@ -348,11 +425,14 @@ export default function App() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="section-pad bg-light" data-reveal>
+      <section id="contact" ref={setSectionRef} className="section-pad bg-light section-root">
         <div className="container">
-          <h2 className="fw-bold">Contact</h2>
+          <div className="reveal">
+            <h2 className="fw-bold">Contact</h2>
+          </div>
+
           <div className="row g-3 mt-2">
-            <div className="col-md-6">
+            <div className="col-md-6 reveal">
               <div className="soft-card">
                 <div className="text-muted small">Email</div>
                 <div className="fw-semibold">
@@ -360,7 +440,7 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 reveal">
               <div className="soft-card">
                 <div className="text-muted small">Phone</div>
                 <div className="fw-semibold">+961 71 589 505</div>
@@ -368,25 +448,25 @@ export default function App() {
             </div>
           </div>
 
-          <div className="text-muted small mt-3">
+          <div className="text-muted small mt-3 reveal">
             Arabic: Native • English: Intermediate • French: Intermediate
           </div>
         </div>
       </section>
 
       <footer className="py-4 text-center bg-white border-top">
-        <button class="backtop" data-backtop type="button">↑</button>
-
-        <button type="button" data-copy-email="joesfeir2004@gmail.com">
-          Copy Email
-        </button>
-
-        <button type="button" data-theme-toggle>
-        Toggle Theme
-        </button>
-
-                © {new Date().getFullYear()} Joseph Sfeir
+        © {new Date().getFullYear()} Joseph Sfeir
       </footer>
+
+      {/* JS back-to-top */}
+      <button
+        className={`back-top ${showTop ? "show" : ""}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Back to top"
+        type="button"
+      >
+        ↑
+      </button>
     </>
   );
 }
