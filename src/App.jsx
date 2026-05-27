@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function App() {
+  const cvPath = `${import.meta.env.BASE_URL}cv/JosephSF__2.pdf`;
+
   const roles = useMemo(
     () => [
       "Computer Science Student @ NDU",
@@ -143,7 +145,7 @@ export default function App() {
               <li className="nav-item ms-lg-2">
                 <a
                   className="btn btn-dark btn-sm"
-                  href="/cv/Joseph-Sfeir-CV.pdf"
+                  href={cvPath}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -188,7 +190,7 @@ export default function App() {
                 </button>
                 <a
                   className="btn btn-outline-secondary"
-                  href="/cv/Joseph-Sfeir-CV.pdf"
+                  href={cvPath}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -296,7 +298,7 @@ export default function App() {
             <div className="reveal">
               <a
                 className="btn btn-outline-dark btn-sm"
-                href="/cv/Joseph-Sfeir-CV.pdf"
+                href={cvPath}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -382,7 +384,7 @@ export default function App() {
 
                 <a
                   className="btn btn-dark w-100 mt-3"
-                  href="/cv/Joseph-Sfeir-CV.pdf"
+                  href={cvPath}
                   target="_blank"
                   rel="noreferrer"
                 >
