@@ -189,4 +189,6 @@ test("keeps accessibility and reduced-motion fundamentals visible in source", as
   assert.match(effects, /hero-nav-hidden/);
   assert.match(identityStyles, /site-progress/);
   assert.match(identityStyles, /hero-nav-hidden/);
+  assert.match(responsiveStyles, /\.case-hero\s*>\s*\*/);
+  assert.match(responsiveStyles, /overscroll-behavior-inline:\s*contain/);
 });
