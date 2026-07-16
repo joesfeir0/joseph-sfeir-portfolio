@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { headers } from "next/headers";
 
+import { PortfolioEffects } from "@/components/portfolio-effects";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
 import "./globals.css";
 
@@ -133,6 +134,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
       >
         <SiteHeader />
+        <PortfolioEffects />
         {children}
         <SiteFooter />
         <script

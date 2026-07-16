@@ -163,12 +163,15 @@ test("uses one shared content model, two projects, and no former learning lab", 
 });
 
 test("keeps accessibility and reduced-motion fundamentals visible in source", async () => {
-  const [shell, home, background, baseStyles, responsiveStyles] = await Promise.all([
+  const [shell, effects, layout, home, background, baseStyles, responsiveStyles, identityStyles] = await Promise.all([
     readFile(new URL("components/site-shell.tsx", root), "utf8"),
+    readFile(new URL("components/portfolio-effects.tsx", root), "utf8"),
+    readFile(new URL("app/layout.tsx", root), "utf8"),
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/background/page.tsx", root), "utf8"),
     readFile(new URL("app/styles/base.css", root), "utf8"),
     readFile(new URL("app/styles/responsive.css", root), "utf8"),
+    readFile(new URL("app/styles/identity.css", root), "utf8"),
   ]);
 
   assert.match(shell, /Skip to content/);
@@ -179,4 +182,11 @@ test("keeps accessibility and reduced-motion fundamentals visible in source", as
   assert.match(background, /alt="Joseph hiking through a narrow rocky canyon"/);
   assert.match(baseStyles, /:focus-visible/);
   assert.match(responsiveStyles, /prefers-reduced-motion/);
+  assert.match(layout, /PortfolioEffects/);
+  assert.match(effects, /prefers-reduced-motion/);
+  assert.match(effects, /IntersectionObserver/);
+  assert.match(effects, /--page-progress/);
+  assert.match(effects, /hero-nav-hidden/);
+  assert.match(identityStyles, /site-progress/);
+  assert.match(identityStyles, /hero-nav-hidden/);
 });
