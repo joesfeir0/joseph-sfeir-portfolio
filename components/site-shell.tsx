@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -16,17 +15,9 @@ export function SiteHeader() {
       </a>
       <div className="site-header__inner">
         <Link className="site-brand" href="/" aria-label="Joseph Sfeir, home">
-          <span className="site-brand__mark" aria-hidden="true">
-            <Image
-              src="/images/joseph-hero-formal.jpg"
-              alt=""
-              width={48}
-              height={48}
-              unoptimized
-            />
-          </span>
+          <span className="site-brand__mark" aria-hidden="true">JS</span>
           <span className="site-brand__name">
-            <strong>Joseph</strong>
+            <strong>Joseph Sfeir</strong>
             <small>Software engineer</small>
           </span>
         </Link>
@@ -42,7 +33,7 @@ export function SiteHeader() {
         </nav>
 
         <a className="availability-link" href={siteLinks.email}>
-          Say hi <span aria-hidden="true">↗</span>
+          Contact <span aria-hidden="true">↗</span>
         </a>
 
         <details className="mobile-menu">
