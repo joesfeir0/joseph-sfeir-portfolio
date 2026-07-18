@@ -3,8 +3,11 @@
 import { useEffect } from "react";
 
 const revealSelector = [
-  ".signal-path__lead",
-  ".signal-path-card",
+  ".signal-manifesto__lead",
+  ".signal-chain article",
+  ".signal-trace__header",
+  ".signal-timeline article",
+  ".signal-stack",
   ".signal-work__header",
   ".signal-project",
   ".signal-field__header",

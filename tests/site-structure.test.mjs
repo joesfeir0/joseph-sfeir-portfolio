@@ -80,29 +80,19 @@ test("ships the real resume, social artwork, photos, and product evidence", asyn
   assert.doesNotMatch(home, /Profile \/ 001|UTC \+03|signal-ticker/);
   assert.doesNotMatch(home, /joseph-editorial-hero\.webp/);
   assert.match(home, /Build log \/ selected systems/);
-  assert.match(home, /signal-path/);
+  assert.match(home, /signal-trace/);
+  assert.match(home, /signal-manifesto/);
   assert.match(home, /signal-projects/);
   assert.match(home, /signal-field/);
   assert.match(home, /A little more[\s\S]*than my[\s\S]*résumé/);
   assert.match(home, /Code \/ gym \/ trail/);
   assert.match(home, /One chapter finished/);
   assert.match(home, /Best debugging environment I know/);
+  assert.match(home, /The path so far, in commits/);
+  assert.match(home, /<h3>Interface<\/h3>|<h3>System<\/h3>|<h3>Outcome<\/h3>/);
   assert.match(
     home,
-    /From learning the fundamentals to building complete products/,
-  );
-  assert.match(
-    home,
-    /Building \{projects\.automatch\.title\} and \{projects\.fitai\.title\}/,
-  );
-  assert.doesNotMatch(home, /signal-manifesto|signal-trace|signal-timeline/);
-  assert.doesNotMatch(
-    home,
-    /<h3>Interface<\/h3>|<h3>System<\/h3>|<h3>Outcome<\/h3>/,
-  );
-  assert.match(
-    home,
-    /I like the moment when the pieces start[\s\S]*?<em>talking to each other\.<\/em>/,
+    /I like the moment when the pieces start[\s\S]*?<em>\s*talking to each other\.<\/em>/,
   );
   assert.equal(
     home.match(/I like the moment when the pieces start/g)?.length,
@@ -111,8 +101,8 @@ test("ships the real resume, social artwork, photos, and product evidence", asyn
   assert.equal(home.match(/id="journey"/g)?.length, 1);
   assert.ok(home.indexOf('id="journey"') < home.indexOf('id="work"'));
   assert.ok(home.indexOf('id="work"') < home.indexOf('id="about"'));
-  assert.ok(home.indexOf('id="about"') < home.indexOf("signal-philosophy"));
-  assert.ok(home.indexOf("signal-philosophy") < home.indexOf("signal-contact"));
+  assert.ok(home.indexOf('id="about"') < home.indexOf("signal-manifesto"));
+  assert.ok(home.indexOf("signal-manifesto") < home.indexOf("signal-contact"));
   assert.match(home, /Recent Computer Science graduate/i);
   assert.match(home, /automatch-detail-prediction\.png/);
   assert.match(home, /automatch-ai-assistant\.png/);

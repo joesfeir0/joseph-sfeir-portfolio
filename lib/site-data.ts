@@ -281,8 +281,8 @@ export const experience = [
 ] as const;
 
 export const education = {
-  institution: "Notre Dame University–Louaize",
-  credential: "B.S. in Computer Science",
+  institution: "Notre Dame University (NDU)",
+  credential: "Bachelor of Computer Science",
   period: "2022 — 2026",
   location: "Zouk Mosbeh, Lebanon",
 } as const;

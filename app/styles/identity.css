@@ -413,11 +413,9 @@ body {
   content: "+";
 }
 
-/* The path moves from education to experience and current product work. */
-.signal-path {
-  --path-gap: clamp(0.8rem, 1.4vw, 1.35rem);
-  scroll-margin-top: 5.5rem;
-  padding-block: clamp(6.5rem, 10vw, 10rem);
+/* A three-part systems chain instead of the former centered manifesto. */
+.signal-manifesto {
+  padding-block: clamp(7rem, 12vw, 12rem);
 }
 
 .signal-section-head {
@@ -436,74 +434,57 @@ body {
   text-transform: uppercase;
 }
 
-.signal-path__lead {
+.signal-manifesto__lead {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(18rem, 0.48fr);
-  gap: clamp(3rem, 8vw, 8rem);
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.45fr);
+  gap: clamp(3rem, 10vw, 10rem);
   align-items: end;
-  padding-block: clamp(3.5rem, 6vw, 6rem);
+  padding-block: clamp(4rem, 8vw, 8rem);
 }
 
-.signal-path h2 {
-  max-width: 14ch;
+.signal-manifesto h2 {
+  max-width: 15ch;
   margin: 0;
-  font-size: clamp(3.4rem, 6.2vw, 6.5rem);
+  font-size: clamp(3.5rem, 7vw, 7.4rem);
   font-weight: 620;
-  letter-spacing: -0.07em;
-  line-height: 0.92;
-  text-wrap: balance;
+  letter-spacing: -0.075em;
+  line-height: 0.9;
 }
 
-.signal-path__lead > p {
-  max-width: 36rem;
+.signal-manifesto h2 em {
+  color: var(--signal-ember);
+}
+
+.signal-manifesto__lead > p {
   margin: 0;
   color: var(--muted);
   font-size: 1rem;
   line-height: 1.75;
 }
 
-.signal-path__cards {
+.signal-chain {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--path-gap);
-}
-
-.signal-path-card {
-  min-height: 23rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: clamp(1.4rem, 2vw, 2rem);
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
   border: 1px solid var(--signal-dark);
   border-radius: 0.8rem;
   background: rgb(255 253 247 / 0.48);
-  box-shadow: 0.5rem 0.5rem 0 rgb(13 23 18 / 0.05);
+  box-shadow: 0.75rem 0.75rem 0 rgb(13 23 18 / 0.06);
 }
 
-.signal-path-card:not(:last-child)::after {
-  content: "→";
-  width: 1.55rem;
-  height: 1.55rem;
-  position: absolute;
-  z-index: 2;
-  top: 1.75rem;
-  right: calc((var(--path-gap) * -1) - 0.79rem);
-  display: grid;
-  place-items: center;
-  background: var(--signal-bone);
-  color: var(--signal-ember);
-  font-family: var(--font-mono), monospace;
-  font-size: 0.72rem;
-}
-
-.signal-path-card__top {
+.signal-chain article {
+  min-height: 20rem;
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  flex-direction: column;
+  padding: 1.7rem 1.8rem 2rem;
 }
 
-.signal-path-card__top > span {
+.signal-chain article + article {
+  border-left: 1px solid var(--signal-dark);
+}
+
+.signal-chain article > span {
   width: 2.2rem;
   height: 2.2rem;
   display: grid;
@@ -515,87 +496,19 @@ body {
   font-size: 0.62rem;
 }
 
-.signal-path-card__top > p {
-  margin: 0;
-  color: var(--muted);
-  font-family: var(--font-mono), monospace;
-  font-size: 0.58rem;
-  font-weight: 720;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.signal-path-card__body {
-  margin-top: auto;
-  padding-top: 3rem;
-}
-
-.signal-path-card h3 {
-  max-width: 15ch;
-  margin: 0;
-  font-size: clamp(2rem, 2.8vw, 3rem);
+.signal-chain h3 {
+  margin: auto 0 0.8rem;
+  font-size: clamp(2.5rem, 3.8vw, 4.25rem);
   font-weight: 620;
-  letter-spacing: -0.055em;
-  line-height: 0.98;
-  text-wrap: balance;
+  letter-spacing: -0.06em;
 }
 
-.signal-path-card__meta {
-  min-height: 3.2rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
-  align-items: start;
-  margin-top: 1.2rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--line);
-}
-
-.signal-path-card__meta p,
-.signal-path-card__meta time {
+.signal-chain p {
+  max-width: 24rem;
   margin: 0;
-  font-family: var(--font-mono), monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.045em;
-  line-height: 1.45;
-  text-transform: uppercase;
-}
-
-.signal-path-card__meta p {
-  color: var(--ink-soft);
-}
-
-.signal-path-card__meta time {
-  color: var(--muted);
-  text-align: right;
-}
-
-.signal-path-card__description {
-  max-width: 31rem;
-  margin: 1rem 0 0;
   color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.65;
-}
-
-.signal-path-card__tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin: 1.15rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.signal-path-card__tools li {
-  padding: 0.45rem 0.6rem;
-  border: 1px solid rgb(98 136 162 / 0.38);
-  border-radius: 999px;
-  color: var(--cobalt-deep);
-  font-family: var(--font-mono), monospace;
-  font-size: 0.48rem;
-  letter-spacing: 0.035em;
-  text-transform: uppercase;
 }
 
 /* Project work is a build log: copy and evidence share one strict grid. */
@@ -953,56 +866,125 @@ body {
   line-height: 1.55;
 }
 
-.signal-philosophy {
-  padding-block: clamp(6rem, 9vw, 9rem);
-  border-top: 1px solid var(--line);
-  background: var(--paper-bright);
+/* Experience as a trace through the system. */
+.signal-trace {
+  padding-block: clamp(7rem, 12vw, 12rem);
+  scroll-margin-top: 5.5rem;
+  background: var(--signal-green);
+  color: #f4f1e7;
 }
 
-.signal-philosophy__topline {
-  display: flex;
-  justify-content: space-between;
+.signal-trace__header {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+.signal-trace__header .signal-label {
+  color: var(--signal-lime);
+}
+
+.signal-trace__header h2 {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(4rem, 8vw, 8.4rem);
+  font-weight: 660;
+  letter-spacing: -0.08em;
+  line-height: 0.84;
+}
+
+.signal-timeline {
+  border-top: 1px solid rgb(244 241 231 / 0.32);
+}
+
+.signal-timeline article {
+  display: grid;
+  grid-template-columns: 5rem 12rem minmax(0, 1fr);
   gap: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--line);
+  padding-block: 2rem;
+  border-bottom: 1px solid rgb(244 241 231 / 0.22);
 }
 
-.signal-philosophy__topline > span {
-  color: var(--muted);
+.signal-timeline__index {
+  color: var(--signal-lime);
   font-family: var(--font-mono), monospace;
-  font-size: 0.64rem;
+  font-size: 0.6rem;
+}
+
+.signal-timeline time,
+.signal-timeline small {
+  color: rgb(244 241 231 / 0.58);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.signal-timeline h3 {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.8rem, 3.4vw, 3.8rem);
+  font-weight: 620;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.signal-timeline p {
+  max-width: 46rem;
+  margin: 0.8rem 0 0;
+  color: rgb(244 241 231 / 0.82);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.signal-stack {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.24fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  border-block: 1px solid rgb(244 241 231 / 0.24);
+}
+
+.signal-stack > p {
+  margin: 0;
+  padding-top: 0.68rem;
+  color: rgb(244 241 231 / 0.58);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.54rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.signal-philosophy__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.42fr);
-  gap: clamp(3rem, 8vw, 8rem);
-  align-items: end;
-  padding-top: clamp(3.5rem, 6vw, 6rem);
-}
-
-.signal-philosophy h2 {
-  max-width: 13ch;
+.signal-stack ul {
   margin: 0;
-  font-size: clamp(3.5rem, 6.6vw, 7rem);
-  font-weight: 620;
-  letter-spacing: -0.075em;
-  line-height: 0.9;
-  text-wrap: balance;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  list-style: none;
 }
 
-.signal-philosophy h2 em {
-  color: var(--signal-ember);
+.signal-stack li {
+  min-height: 2.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid rgb(244 241 231 / 0.25);
+  border-radius: 999px;
+  background: transparent;
+  color: rgb(244 241 231 / 0.8);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
 }
 
-.signal-philosophy__inner > p {
-  max-width: 34rem;
-  margin: 0;
-  color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.75;
+.signal-stack li::before {
+  display: none;
 }
 
 .signal-contact {
@@ -1106,24 +1088,6 @@ body {
 
   .signal-hero__portrait {
     grid-column: 7 / 13;
-  }
-
-  .signal-path__cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .signal-path-card:not(:last-child)::after {
-    display: none;
-  }
-
-  .signal-path-card--current {
-    min-height: auto;
-    grid-column: 1 / -1;
-  }
-
-  .signal-path-card--current .signal-path-card__body {
-    max-width: 50rem;
-    margin-top: 3.5rem;
   }
 
   .signal-project {
@@ -1282,62 +1246,38 @@ body {
     justify-content: flex-start;
   }
 
-  .signal-path__lead,
+  .signal-manifesto__lead,
   .signal-work__header,
   .signal-field__header,
-  .signal-philosophy__inner,
   .signal-contact__inner {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .signal-path h2,
+  .signal-manifesto h2,
   .signal-work__header h2,
   .signal-field__header h2,
-  .signal-philosophy h2,
+  .signal-trace__header h2,
   .signal-contact h2 {
     font-size: clamp(3.4rem, 15vw, 5.6rem);
   }
 
-  .signal-section-head {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .signal-philosophy__topline {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .signal-path__lead {
-    padding-block: 3rem;
-  }
-
-  .signal-philosophy__inner {
-    padding-top: 3rem;
-  }
-
-  .signal-path__cards {
+  .signal-chain {
     grid-template-columns: 1fr;
   }
 
-  .signal-path-card,
-  .signal-path-card--current {
+  .signal-chain article {
     min-height: auto;
-    grid-column: auto;
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 1.8rem;
   }
 
-  .signal-path-card__body,
-  .signal-path-card--current .signal-path-card__body {
-    margin-top: 3rem;
-    padding-top: 0;
+  .signal-chain article + article {
+    border-top: 1px solid var(--signal-dark);
+    border-left: 0;
   }
 
-  .signal-path-card h3 {
-    font-size: clamp(2.25rem, 10vw, 3.2rem);
+  .signal-chain h3 {
+    margin-top: 2rem;
   }
 
   .signal-project,
@@ -1443,6 +1383,21 @@ body {
     justify-self: end;
   }
 
+  .signal-trace__header {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .signal-timeline article {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.8rem 1rem;
+  }
+
+  .signal-timeline time,
+  .signal-timeline article > div {
+    grid-column: 2;
+  }
+
   .signal-contact .signal-label,
   .signal-work__header .signal-label,
   .signal-field__header .signal-label {
@@ -1463,13 +1418,14 @@ body {
     flex-direction: column;
   }
 
-  .signal-path-card__meta {
+  .signal-stack {
+    padding: 1.5rem 0;
     grid-template-columns: 1fr;
-    gap: 0.35rem;
+    gap: 1.2rem;
   }
 
-  .signal-path-card__meta time {
-    text-align: left;
+  .signal-stack > p {
+    padding-top: 0;
   }
 }
 
