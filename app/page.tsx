@@ -86,7 +86,7 @@ export default function Home() {
       >
         <div className="section-shell">
           <header className="signal-trace__header">
-            <p className="signal-label">Trace / experience + education</p>
+            <p className="signal-label">Path / education + experience</p>
             <h2 id="trace-title">The path so far, in commits.</h2>
           </header>
 
@@ -343,9 +343,9 @@ export default function Home() {
             <em> talking to each other.</em>
           </h2>
           <p>
-            Recent Computer Science graduate, naturally curious, and happiest
-            when I can follow an idea from the visible screen to the logic,
-            data, and decisions underneath it.
+            The interface, logic, data, and decisions behind a product should
+            not feel like separate parts. The best results happen when they work
+            together as one clear system.
           </p>
         </div>
 

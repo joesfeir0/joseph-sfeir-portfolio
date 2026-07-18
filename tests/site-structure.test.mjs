@@ -88,6 +88,7 @@ test("ships the real resume, social artwork, photos, and product evidence", asyn
   assert.match(home, /Code \/ gym \/ trail/);
   assert.match(home, /One chapter finished/);
   assert.match(home, /Best debugging environment I know/);
+  assert.match(home, /Path \/ education \+ experience/);
   assert.match(home, /The path so far, in commits/);
   assert.match(home, /<h3>Interface<\/h3>|<h3>System<\/h3>|<h3>Outcome<\/h3>/);
   assert.match(
@@ -103,7 +104,11 @@ test("ships the real resume, social artwork, photos, and product evidence", asyn
   assert.ok(home.indexOf('id="work"') < home.indexOf('id="about"'));
   assert.ok(home.indexOf('id="about"') < home.indexOf("signal-manifesto"));
   assert.ok(home.indexOf("signal-manifesto") < home.indexOf("signal-contact"));
-  assert.match(home, /Recent Computer Science graduate/i);
+  assert.match(
+    home,
+    /The interface, logic, data, and decisions behind a product should[\s\S]*?work[\s\S]*?together as one clear system\./,
+  );
+  assert.doesNotMatch(home, /Recent Computer Science graduate/i);
   assert.match(home, /automatch-detail-prediction\.png/);
   assert.match(home, /automatch-ai-assistant\.png/);
   assert.match(home, /automatch-inventory\.png/);
@@ -152,6 +157,12 @@ test("keeps project claims honest and status-aware", async () => {
   assert.match(fitai, /AI Coach remains a planned milestone/i);
   assert.match(fitai, /not medical advice/i);
   assert.match(data, /Planned advisory response generation/);
+  assert.match(
+    data,
+    /One place for workouts, nutrition, and measurable progress\./,
+  );
+  assert.match(data, /Full-Stack Web Developer Intern/);
+  assert.doesNotMatch(data, /Full Stack Web Developer Intern/);
 });
 
 test("uses one shared content model, two projects, and no former learning lab", async () => {
@@ -229,6 +240,10 @@ test("keeps accessibility and reduced-motion fundamentals visible in source", as
   assert.match(effects, /hero-nav-hidden/);
   assert.match(identityStyles, /site-progress/);
   assert.match(identityStyles, /hero-nav-hidden/);
+  assert.match(identityStyles, /--muted:\s*#58635d/);
+  assert.match(identityStyles, /\.signal-timeline article:hover > div/);
+  assert.match(identityStyles, /\.signal-stack li:hover/);
+  assert.match(identityStyles, /\.signal-chain article:hover > \*/);
   assert.match(responsiveStyles, /\.case-hero\s*>\s*\*/);
   assert.match(responsiveStyles, /overscroll-behavior-inline:\s*contain/);
 });

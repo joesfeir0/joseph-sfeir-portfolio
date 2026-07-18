@@ -156,8 +156,7 @@ export const projects: Record<ProjectId, ProjectRecord> = {
     index: "02",
     title: "FitAI",
     eyebrow: "Evolving mobile product",
-    statement:
-      "One place for training, nutrition, progress, and useful context.",
+    statement: "One place for workouts, nutrition, and measurable progress.",
     summary:
       "A Flutter fitness product in progress, designed to connect workout planning, food tracking, and body progress, with a planned advisory AI coach.",
     path: "/systems/fit-ai",
@@ -263,7 +262,7 @@ export const capabilities = [
 
 export const experience = [
   {
-    role: "Full Stack Web Developer Intern",
+    role: "Full-Stack Web Developer Intern",
     organization: "White Beard Lebanon",
     period: "Jun — Jul 2025",
     summary:
