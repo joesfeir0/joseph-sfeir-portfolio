@@ -3,16 +3,13 @@
 import { useEffect } from "react";
 
 const revealSelector = [
-  ".signal-manifesto__lead",
-  ".signal-chain article",
+  ".signal-path__lead",
+  ".signal-path-card",
   ".signal-work__header",
   ".signal-project",
   ".signal-field__header",
   ".signal-photo",
   ".signal-field__note",
-  ".signal-trace__header",
-  ".signal-timeline article",
-  ".signal-stack",
   ".signal-contact__inner",
   ".site-footer__brand",
   ".site-footer__links",
@@ -37,13 +34,16 @@ export function PortfolioEffects() {
       const heroRevealPoint = Math.min(window.innerHeight * 0.12, 96);
       root.classList.toggle(
         "hero-nav-hidden",
-        Boolean(homeHero && homeHero.getBoundingClientRect().bottom > heroRevealPoint),
+        Boolean(
+          homeHero && homeHero.getBoundingClientRect().bottom > heroRevealPoint,
+        ),
       );
       scrollFrame = 0;
     };
 
     const requestProgressUpdate = () => {
-      if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateProgress);
+      if (!scrollFrame)
+        scrollFrame = window.requestAnimationFrame(updateProgress);
     };
 
     window.addEventListener("scroll", requestProgressUpdate, { passive: true });
@@ -88,7 +88,8 @@ export function PortfolioEffects() {
 
     const setActiveSection = (id: string) => {
       navLinks.forEach((link) => {
-        const active = new URL(link.href, window.location.href).hash === `#${id}`;
+        const active =
+          new URL(link.href, window.location.href).hash === `#${id}`;
         link.classList.toggle("is-active", active);
         if (active) link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
@@ -118,8 +119,14 @@ export function PortfolioEffects() {
           const rect = target.getBoundingClientRect();
           const x = (event.clientX - rect.left) / rect.width;
           const y = (event.clientY - rect.top) / rect.height;
-          target.style.setProperty("--tilt-x", `${((0.5 - y) * 4).toFixed(2)}deg`);
-          target.style.setProperty("--tilt-y", `${((x - 0.5) * 4).toFixed(2)}deg`);
+          target.style.setProperty(
+            "--tilt-x",
+            `${((0.5 - y) * 4).toFixed(2)}deg`,
+          );
+          target.style.setProperty(
+            "--tilt-y",
+            `${((x - 0.5) * 4).toFixed(2)}deg`,
+          );
           target.style.setProperty("--shine-x", `${(x * 100).toFixed(1)}%`);
           target.style.setProperty("--shine-y", `${(y * 100).toFixed(1)}%`);
         };
@@ -143,7 +150,9 @@ export function PortfolioEffects() {
         root.style.setProperty("--pointer-y", `${event.clientY}px`);
       };
       window.addEventListener("pointermove", handlePointer, { passive: true });
-      tiltCleanups.push(() => window.removeEventListener("pointermove", handlePointer));
+      tiltCleanups.push(() =>
+        window.removeEventListener("pointermove", handlePointer),
+      );
     }
 
     return () => {

@@ -17,9 +17,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const featuredTools = Array.from(
-  new Set(capabilities.flatMap((capability) => capability.tools)),
-).slice(0, 18);
+const supportedTools = new Set<string>(
+  capabilities.flatMap((capability) => capability.tools),
+);
+
+const currentWorkTools = [
+  "Next.js",
+  "Flutter",
+  "Supabase",
+  "PostgreSQL",
+  "Tailwind CSS",
+].filter((tool) => supportedTools.has(tool));
 
 function Arrow() {
   return <span aria-hidden="true">↗</span>;
@@ -72,49 +80,97 @@ export default function Home() {
 
           <div className="signal-hero__meta">
             <span className="signal-hero__status">
-              <i aria-hidden="true" /> Available for junior software opportunities
+              <i aria-hidden="true" /> Available for junior software
+              opportunities
             </span>
           </div>
         </div>
       </section>
 
       <section
-        className="signal-manifesto section-shell"
-        id="what-i-do"
-        aria-labelledby="manifesto-title"
+        className="signal-path section-shell"
+        id="journey"
+        aria-labelledby="path-title"
       >
         <header className="signal-section-head">
-          <p className="signal-label">Operating principle / 01</p>
-          <span>Interface → system → outcome</span>
+          <p className="signal-label">Path / education + experience</p>
+          <span>Education → experience → current work</span>
         </header>
 
-        <div className="signal-manifesto__lead">
-          <h2 id="manifesto-title">
-            I like the moment when the pieces start
-            <em> talking to each other.</em>
+        <div className="signal-path__lead">
+          <h2 id="path-title">
+            From learning the fundamentals to building complete products.
           </h2>
           <p>
-            Recent Computer Science graduate, naturally curious, and happiest
-            when I can follow an idea from the visible screen to the logic,
-            data, and decisions underneath it.
+            Recent Computer Science graduate with hands-on experience building
+            full-stack and mobile products. My path has moved from academic
+            foundations and professional experience to developing AutoMatch and
+            FitAI.
           </p>
         </div>
 
-        <div className="signal-chain" aria-label="Joseph's product approach">
-          <article>
-            <span>01</span>
-            <h3>Interface</h3>
-            <p>Make the next action obvious and the hard parts feel calm.</p>
+        <div
+          className="signal-path__cards"
+          aria-label="Education, experience, and current work"
+        >
+          <article className="signal-path-card">
+            <header className="signal-path-card__top">
+              <span>01</span>
+              <p>Education</p>
+            </header>
+            <div className="signal-path-card__body">
+              <h3>{education.credential}</h3>
+              <div className="signal-path-card__meta">
+                <p>{education.institution}</p>
+                <time>{education.period}</time>
+              </div>
+              <p className="signal-path-card__description">
+                Graduated in 2026 with a foundation in software development,
+                databases, algorithms, systems, and complete product building.
+              </p>
+            </div>
           </article>
-          <article>
-            <span>02</span>
-            <h3>System</h3>
-            <p>Connect the services, rules, and data without losing the plot.</p>
+
+          <article className="signal-path-card">
+            <header className="signal-path-card__top">
+              <span>02</span>
+              <p>Experience</p>
+            </header>
+            <div className="signal-path-card__body">
+              <h3>{experience[0].role}</h3>
+              <div className="signal-path-card__meta">
+                <p>{experience[0].organization}</p>
+                <time>{experience[0].period}</time>
+              </div>
+              <p className="signal-path-card__description">
+                {experience[0].summary}
+              </p>
+            </div>
           </article>
-          <article>
-            <span>03</span>
-            <h3>Outcome</h3>
-            <p>Ship something useful, observe what changes, and improve it.</p>
+
+          <article className="signal-path-card signal-path-card--current">
+            <header className="signal-path-card__top">
+              <span>03</span>
+              <p>Current work</p>
+            </header>
+            <div className="signal-path-card__body">
+              <h3>
+                Building {projects.automatch.title} and {projects.fitai.title}
+              </h3>
+              <p className="signal-path-card__description">
+                Developing complete web and mobile products that connect user
+                interfaces, application logic, authentication, databases,
+                workflows, and practical AI-assisted features.
+              </p>
+              <ul
+                className="signal-path-card__tools"
+                aria-label="Technologies used in current work"
+              >
+                {currentWorkTools.map((tool) => (
+                  <li key={tool}>{tool}</li>
+                ))}
+              </ul>
+            </div>
           </article>
         </div>
       </section>
@@ -123,7 +179,9 @@ export default function Home() {
         <div className="section-shell">
           <header className="signal-work__header">
             <p className="signal-label">Build log / selected systems</p>
-            <h2 id="work-title">Two products. One habit: follow the whole loop.</h2>
+            <h2 id="work-title">
+              Two products. One habit: follow the whole loop.
+            </h2>
             <p>
               The screenshots matter, but so do the services, workflows, and
               product decisions that make them useful.
@@ -200,7 +258,9 @@ export default function Home() {
             <article className="signal-project signal-project--fitai">
               <div className="signal-project__copy">
                 <div className="signal-project__number">02</div>
-                <p className="signal-label">{projects.fitai.role} / In progress</p>
+                <p className="signal-label">
+                  {projects.fitai.role} / In progress
+                </p>
                 <h3>{projects.fitai.title}</h3>
                 <h4>{projects.fitai.statement}</h4>
                 <p>{projects.fitai.summary}</p>
@@ -251,7 +311,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="signal-field" id="about" aria-labelledby="field-title">
+      <section
+        className="signal-field"
+        id="about"
+        aria-labelledby="field-title"
+      >
         <div className="section-shell">
           <header className="signal-field__header">
             <p className="signal-label">Off the clock</p>
@@ -305,50 +369,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="signal-trace" id="journey" aria-labelledby="trace-title">
+      <section className="signal-philosophy" aria-labelledby="philosophy-title">
         <div className="section-shell">
-          <header className="signal-trace__header">
-            <p className="signal-label">Trace / experience + education</p>
-            <h2 id="trace-title">The path so far, in commits.</h2>
+          <header className="signal-philosophy__topline">
+            <p className="signal-label">Closing principle</p>
+            <span>Interface → system → outcome</span>
           </header>
-
-          <div className="signal-timeline">
-            <article>
-              <span className="signal-timeline__index">01</span>
-              <time>{experience[0].period}</time>
-              <div>
-                <small>{experience[0].organization}</small>
-                <h3>{experience[0].role}</h3>
-                <p>{experience[0].summary}</p>
-              </div>
-            </article>
-            <article>
-              <span className="signal-timeline__index">02</span>
-              <time>{education.period}</time>
-              <div>
-                <small>{education.institution}</small>
-                <h3>{education.credential}</h3>
-                <p>Completed in 2026 with a focus on building connected products.</p>
-              </div>
-            </article>
-            <article>
-              <span className="signal-timeline__index">03</span>
-              <time>{experience[1].period}</time>
-              <div>
-                <small>{experience[1].organization}</small>
-                <h3>{experience[1].role}</h3>
-                <p>{experience[1].summary}</p>
-              </div>
-            </article>
-          </div>
-
-          <div className="signal-stack">
-            <p>Current toolbox</p>
-            <ul aria-label="Technologies Joseph works with">
-              {featuredTools.map((tool) => (
-                <li key={tool}>{tool}</li>
-              ))}
-            </ul>
+          <div className="signal-philosophy__inner">
+            <h2 id="philosophy-title">
+              I like the moment when the pieces start{" "}
+              <em>talking to each other.</em>
+            </h2>
+            <p>
+              The interface, logic, data, and decisions behind a product should
+              not feel like separate parts. The best results happen when they
+              work together as one clear system.
+            </p>
           </div>
         </div>
       </section>
@@ -356,13 +392,18 @@ export default function Home() {
       <section className="signal-contact" aria-labelledby="contact-cta-title">
         <div className="section-shell signal-contact__inner">
           <p className="signal-label">Open channel / available for work</p>
-          <h2 id="contact-cta-title">Need a builder who asks why before how?</h2>
+          <h2 id="contact-cta-title">
+            Need a builder who asks why before how?
+          </h2>
           <p>
-            I’m looking for a junior software role where I can contribute,
-            learn quickly, and stay close to the product.
+            I’m looking for a junior software role where I can contribute, learn
+            quickly, and stay close to the product.
           </p>
           <div className="signal-contact__actions">
-            <a className="signal-button signal-button--accent" href={siteLinks.email}>
+            <a
+              className="signal-button signal-button--accent"
+              href={siteLinks.email}
+            >
               Start a conversation <Arrow />
             </a>
             <a

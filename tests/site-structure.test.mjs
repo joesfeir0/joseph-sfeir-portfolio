@@ -14,9 +14,13 @@ const requiredPages = [
 
 test("includes every portfolio route and SEO surface", async () => {
   await Promise.all(
-    [...requiredPages, "app/sitemap.ts", "app/robots.ts", "app/not-found.tsx", "next.config.ts"].map(
-      (path) => access(new URL(path, root)),
-    ),
+    [
+      ...requiredPages,
+      "app/sitemap.ts",
+      "app/robots.ts",
+      "app/not-found.tsx",
+      "next.config.ts",
+    ].map((path) => access(new URL(path, root))),
   );
 
   const sources = await Promise.all(
@@ -68,19 +72,47 @@ test("ships the real resume, social artwork, photos, and product evidence", asyn
   assert.match(home, /src="\/images\/joseph-hero-formal\.jpg"/);
   assert.match(home, /fill[\s\S]*?priority[\s\S]*?sizes="100vw"/);
   assert.match(home, /Software engineer \/ curious systems thinker/);
-  assert.match(home, /I build useful software where interface, data, and intelligence/);
+  assert.match(
+    home,
+    /I build useful software where interface, data, and intelligence/,
+  );
   assert.match(home, /Open the build log/);
   assert.doesNotMatch(home, /Profile \/ 001|UTC \+03|signal-ticker/);
   assert.doesNotMatch(home, /joseph-editorial-hero\.webp/);
   assert.match(home, /Build log \/ selected systems/);
-  assert.match(home, /signal-manifesto/);
+  assert.match(home, /signal-path/);
   assert.match(home, /signal-projects/);
   assert.match(home, /signal-field/);
   assert.match(home, /A little more[\s\S]*than my[\s\S]*résumé/);
   assert.match(home, /Code \/ gym \/ trail/);
   assert.match(home, /One chapter finished/);
   assert.match(home, /Best debugging environment I know/);
-  assert.match(home, /signal-trace/);
+  assert.match(
+    home,
+    /From learning the fundamentals to building complete products/,
+  );
+  assert.match(
+    home,
+    /Building \{projects\.automatch\.title\} and \{projects\.fitai\.title\}/,
+  );
+  assert.doesNotMatch(home, /signal-manifesto|signal-trace|signal-timeline/);
+  assert.doesNotMatch(
+    home,
+    /<h3>Interface<\/h3>|<h3>System<\/h3>|<h3>Outcome<\/h3>/,
+  );
+  assert.match(
+    home,
+    /I like the moment when the pieces start[\s\S]*?<em>talking to each other\.<\/em>/,
+  );
+  assert.equal(
+    home.match(/I like the moment when the pieces start/g)?.length,
+    1,
+  );
+  assert.equal(home.match(/id="journey"/g)?.length, 1);
+  assert.ok(home.indexOf('id="journey"') < home.indexOf('id="work"'));
+  assert.ok(home.indexOf('id="work"') < home.indexOf('id="about"'));
+  assert.ok(home.indexOf('id="about"') < home.indexOf("signal-philosophy"));
+  assert.ok(home.indexOf("signal-philosophy") < home.indexOf("signal-contact"));
   assert.match(home, /Recent Computer Science graduate/i);
   assert.match(home, /automatch-detail-prediction\.png/);
   assert.match(home, /automatch-ai-assistant\.png/);
@@ -133,14 +165,15 @@ test("keeps project claims honest and status-aware", async () => {
 });
 
 test("uses one shared content model, two projects, and no former learning lab", async () => {
-  const [home, automatch, fitai, data, sitemap, packageJson] = await Promise.all([
-    readFile(new URL("app/page.tsx", root), "utf8"),
-    readFile(new URL("app/systems/automatch/page.tsx", root), "utf8"),
-    readFile(new URL("app/systems/fit-ai/page.tsx", root), "utf8"),
-    readFile(new URL("lib/site-data.ts", root), "utf8"),
-    readFile(new URL("app/sitemap.ts", root), "utf8"),
-    readFile(new URL("package.json", root), "utf8"),
-  ]);
+  const [home, automatch, fitai, data, sitemap, packageJson] =
+    await Promise.all([
+      readFile(new URL("app/page.tsx", root), "utf8"),
+      readFile(new URL("app/systems/automatch/page.tsx", root), "utf8"),
+      readFile(new URL("app/systems/fit-ai/page.tsx", root), "utf8"),
+      readFile(new URL("lib/site-data.ts", root), "utf8"),
+      readFile(new URL("app/sitemap.ts", root), "utf8"),
+      readFile(new URL("package.json", root), "utf8"),
+    ]);
 
   for (const source of [home, automatch, fitai]) {
     assert.match(source, /@\/lib\/site-data/);
@@ -153,7 +186,9 @@ test("uses one shared content model, two projects, and no former learning lab", 
 
   await Promise.all([
     assert.rejects(access(new URL("components/system-orbit-3d.tsx", root))),
-    assert.rejects(access(new URL("components/system-orbit-3d-loader.tsx", root))),
+    assert.rejects(
+      access(new URL("components/system-orbit-3d-loader.tsx", root)),
+    ),
     assert.rejects(access(new URL("components/interactive-demos.tsx", root))),
     assert.rejects(access(new URL("components/project-visuals.tsx", root))),
     assert.rejects(access(new URL("app/_sites-preview", root))),
@@ -163,7 +198,16 @@ test("uses one shared content model, two projects, and no former learning lab", 
 });
 
 test("keeps accessibility and reduced-motion fundamentals visible in source", async () => {
-  const [shell, effects, layout, home, background, baseStyles, responsiveStyles, identityStyles] = await Promise.all([
+  const [
+    shell,
+    effects,
+    layout,
+    home,
+    background,
+    baseStyles,
+    responsiveStyles,
+    identityStyles,
+  ] = await Promise.all([
     readFile(new URL("components/site-shell.tsx", root), "utf8"),
     readFile(new URL("components/portfolio-effects.tsx", root), "utf8"),
     readFile(new URL("app/layout.tsx", root), "utf8"),
@@ -176,9 +220,15 @@ test("keeps accessibility and reduced-motion fundamentals visible in source", as
 
   assert.match(shell, /Skip to content/);
   assert.match(shell, /aria-label="Primary navigation"/);
-  assert.match(home, /alt="Joseph Sfeir standing in a white shirt and brown tie in a university corridor/);
+  assert.match(
+    home,
+    /alt="Joseph Sfeir standing in a white shirt and brown tie in a university corridor/,
+  );
   assert.match(home, /alt="AutoMatch vehicle page with price prediction/);
-  assert.match(home, /alt="FitAI calorie target, health profile estimates, and food log"/);
+  assert.match(
+    home,
+    /alt="FitAI calorie target, health profile estimates, and food log"/,
+  );
   assert.match(background, /alt="Joseph hiking through a narrow rocky canyon"/);
   assert.match(baseStyles, /:focus-visible/);
   assert.match(responsiveStyles, /prefers-reduced-motion/);

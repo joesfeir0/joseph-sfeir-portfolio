@@ -122,10 +122,19 @@ export const projects: Record<ProjectId, ProjectRecord> = {
     ],
     architecture: [
       { label: "React", detail: "Marketplace and administration interfaces" },
-      { label: "Laravel", detail: "Domain logic, authentication, messaging, and appointments" },
-      { label: "MySQL", detail: "Users, vehicles, listings, and operational records" },
+      {
+        label: "Laravel",
+        detail: "Domain logic, authentication, messaging, and appointments",
+      },
+      {
+        label: "MySQL",
+        detail: "Users, vehicles, listings, and operational records",
+      },
       { label: "FastAPI", detail: "HTTP boundary for valuation requests" },
-      { label: "XGBoost", detail: "Vehicle price estimation and forecast flow" },
+      {
+        label: "XGBoost",
+        detail: "Vehicle price estimation and forecast flow",
+      },
     ],
     challenges: [
       "Keeping conversational recommendations grounded in vehicles that actually exist in the marketplace",
@@ -147,7 +156,8 @@ export const projects: Record<ProjectId, ProjectRecord> = {
     index: "02",
     title: "FitAI",
     eyebrow: "Evolving mobile product",
-    statement: "One place for training, nutrition, progress, and useful context.",
+    statement:
+      "One place for training, nutrition, progress, and useful context.",
     summary:
       "A Flutter fitness product in progress, designed to connect workout planning, food tracking, and body progress, with a planned advisory AI coach.",
     path: "/systems/fit-ai",
@@ -179,10 +189,16 @@ export const projects: Record<ProjectId, ProjectRecord> = {
       "A planned advisory coach grounded in relevant user-owned context",
     ],
     architecture: [
-      { label: "Flutter", detail: "Workout, nutrition, and progress experiences" },
+      {
+        label: "Flutter",
+        detail: "Workout, nutrition, and progress experiences",
+      },
       { label: "Supabase Auth", detail: "Identity and session management" },
       { label: "PostgreSQL + RLS", detail: "User-owned fitness records" },
-      { label: "Edge Function", detail: "Planned server-side assembly of coach context" },
+      {
+        label: "Edge Function",
+        detail: "Planned server-side assembly of coach context",
+      },
       { label: "OpenAI", detail: "Planned advisory response generation" },
     ],
     challenges: [
@@ -212,7 +228,14 @@ export const capabilities = [
   },
   {
     area: "Backend / Systems",
-    tools: ["PHP", "Laravel", "REST APIs", "Authentication", "Validation", "Python APIs"],
+    tools: [
+      "PHP",
+      "Laravel",
+      "REST APIs",
+      "Authentication",
+      "Validation",
+      "Python APIs",
+    ],
     note: "Application logic, service boundaries, secure flows, and the work behind the interface.",
   },
   {
@@ -227,7 +250,13 @@ export const capabilities = [
   },
   {
     area: "AI / Experimentation",
-    tools: ["Python", "ML integration", "XGBoost", "FastAPI", "AI-assisted flows"],
+    tools: [
+      "Python",
+      "ML integration",
+      "XGBoost",
+      "FastAPI",
+      "AI-assisted flows",
+    ],
     note: "Practical AI features connected to real product data and clear user actions.",
   },
 ] as const;
@@ -252,8 +281,8 @@ export const experience = [
 ] as const;
 
 export const education = {
-  institution: "Notre Dame University (NDU)",
-  credential: "Bachelor of Computer Science",
+  institution: "Notre Dame University–Louaize",
+  credential: "B.S. in Computer Science",
   period: "2022 — 2026",
   location: "Zouk Mosbeh, Lebanon",
 } as const;
