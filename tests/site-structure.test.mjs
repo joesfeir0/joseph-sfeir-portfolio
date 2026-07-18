@@ -237,6 +237,8 @@ test("keeps accessibility and reduced-motion fundamentals visible in source", as
   assert.match(effects, /prefers-reduced-motion/);
   assert.match(effects, /IntersectionObserver/);
   assert.match(effects, /--page-progress/);
+  assert.match(effects, /js-photo-parallax/);
+  assert.match(effects, /--photo-shift-x/);
   assert.match(effects, /hero-nav-hidden/);
   assert.match(identityStyles, /site-progress/);
   assert.match(identityStyles, /hero-nav-hidden/);
@@ -244,6 +246,8 @@ test("keeps accessibility and reduced-motion fundamentals visible in source", as
   assert.match(identityStyles, /\.signal-timeline article:hover > div/);
   assert.match(identityStyles, /\.signal-stack li:hover/);
   assert.match(identityStyles, /\.signal-chain article:hover > \*/);
+  assert.match(identityStyles, /\.js-photo-parallax \.automatch-screen/);
+  assert.match(identityStyles, /\.js-photo-parallax \.fitai-screen/);
   assert.match(responsiveStyles, /\.case-hero\s*>\s*\*/);
   assert.match(responsiveStyles, /overscroll-behavior-inline:\s*contain/);
 });

@@ -118,6 +118,13 @@ export function PortfolioEffects() {
 
       tiltTargets.forEach((target) => {
         target.classList.add("js-tilt");
+        const photoTargets = Array.from(
+          target.querySelectorAll<HTMLElement>(
+            ".automatch-screen, .fitai-screen",
+          ),
+        );
+        target.classList.toggle("js-photo-parallax", photoTargets.length > 0);
+
         const handleMove = (event: PointerEvent) => {
           const rect = target.getBoundingClientRect();
           const x = (event.clientX - rect.left) / rect.width;
@@ -132,18 +139,38 @@ export function PortfolioEffects() {
           );
           target.style.setProperty("--shine-x", `${(x * 100).toFixed(1)}%`);
           target.style.setProperty("--shine-y", `${(y * 100).toFixed(1)}%`);
+          photoTargets.forEach((photo, index) => {
+            const depth = 4 + index * 2;
+            photo.style.setProperty(
+              "--photo-shift-x",
+              `${((x - 0.5) * depth).toFixed(2)}px`,
+            );
+            photo.style.setProperty(
+              "--photo-shift-y",
+              `${((y - 0.5) * depth * 0.7).toFixed(2)}px`,
+            );
+          });
         };
         const handleLeave = () => {
           target.style.setProperty("--tilt-x", "0deg");
           target.style.setProperty("--tilt-y", "0deg");
           target.style.setProperty("--shine-x", "50%");
           target.style.setProperty("--shine-y", "50%");
+          photoTargets.forEach((photo) => {
+            photo.style.setProperty("--photo-shift-x", "0px");
+            photo.style.setProperty("--photo-shift-y", "0px");
+          });
         };
         target.addEventListener("pointermove", handleMove);
         target.addEventListener("pointerleave", handleLeave);
         tiltCleanups.push(() => {
           target.removeEventListener("pointermove", handleMove);
           target.removeEventListener("pointerleave", handleLeave);
+          target.classList.remove("js-tilt", "js-photo-parallax");
+          photoTargets.forEach((photo) => {
+            photo.style.removeProperty("--photo-shift-x");
+            photo.style.removeProperty("--photo-shift-y");
+          });
         });
       });
 

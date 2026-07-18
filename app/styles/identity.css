@@ -415,7 +415,7 @@ body {
 
 /* A three-part systems chain instead of the former centered manifesto. */
 .signal-manifesto {
-  padding-block: clamp(7rem, 12vw, 12rem);
+  padding-block: clamp(4rem, 6vw, 6rem) clamp(7rem, 12vw, 12rem);
 }
 
 .signal-section-head {
@@ -2084,7 +2084,7 @@ html {
 }
 
 .signal-field {
-  padding-block: clamp(8rem, 12vw, 12rem) clamp(7rem, 10vw, 10rem);
+  padding-block: clamp(8rem, 12vw, 12rem) clamp(3.5rem, 5vw, 5rem);
   overflow: hidden;
   background: #f2eee6;
   color: var(--ink);
@@ -2149,7 +2149,7 @@ html {
 }
 
 .signal-field__grid {
-  min-height: clamp(68rem, 87vw, 91rem);
+  min-height: clamp(50rem, 58vw, 62rem);
   position: relative;
   border-top: 0;
 }
@@ -2585,6 +2585,13 @@ html.has-pointer .pointer-orb {
   box-shadow: 1.25rem 1.35rem 0 rgb(13 23 18 / 0.12);
 }
 
+.signal-project__stage.js-photo-parallax .automatch-screen,
+.signal-project__stage.js-photo-parallax .fitai-screen {
+  translate: var(--photo-shift-x, 0) var(--photo-shift-y, 0);
+  transition: translate 220ms ease-out;
+  will-change: translate;
+}
+
 .signal-project__stage.js-tilt::after {
   position: absolute;
   z-index: 8;
@@ -2625,6 +2632,12 @@ html.has-pointer .pointer-orb {
   .signal-project__stage.js-tilt:hover {
     box-shadow: 1rem 1rem 0 rgb(13 23 18 / 0.1);
     transform: none;
+    transition: none;
+  }
+
+  .signal-project__stage.js-photo-parallax .automatch-screen,
+  .signal-project__stage.js-photo-parallax .fitai-screen {
+    translate: none;
     transition: none;
   }
 
